@@ -247,16 +247,14 @@ def clear_search(event):
 
 def slika():
     global new_slika
-    seznam_slik = ['muci.jpg', 'muci1.jpg', 'muci2.jpg', 'muci3.jpg', 'muci4.jpg', 'muci5.jpg', 'muci7.jpg']
+    seznam_slik = ['images/muci.jpg', 'images/muci1.jpg', 'images/muci2.jpg', 'images/muci3.jpg', 'images/muci4.jpg', 'images/muci5.jpg', 'images/muci7.jpg', "images/muci8.png"]
     izb_slika = random.choice(seznam_slik)
     my_pic=Image.open(izb_slika)
     resize=my_pic.resize((600,362), Image.ANTIALIAS)
-    time.sleep(1)
     new_slika=ImageTk.PhotoImage(resize)
     img.config(image=new_slika)
     root.update()
 
-slika1=ImageTk.PhotoImage(Image.open("muci.jpg"))
 img = Label(okvir, image="")
 img.grid()
 slika()
@@ -265,7 +263,7 @@ b2=Label(okvir, text='Dobrodošel!', fg='white', bg="black", font="Veranda 50 bo
 b2.grid(row = 2, column = 0, pady = 2)
 
 
-slika_p=PhotoImage(file="potrdi.png")
+slika_p=PhotoImage(file="images/potrdi.png")
 b3=Label(image=slika_p)
 
 
@@ -290,31 +288,28 @@ def potrdi(event):
     global y
     global rez
 
-    root.unbind('<Return>')
-    gumb.unbind('<Button-1>')
 
     if vnos.get()==str(rezultat):
 
         gumb.config(state=DISABLED)
-        pygame.mixer.music.load("sound1.mp3")
+        pygame.mixer.music.load("sounds/sound1.mp3")
         pygame.mixer.music.play()
         b2.configure(text="Pravilen odgovor!")
         vnos.grid_remove()
         b.configure(text=text_var+vnos.get())
         root.update()
-        time.sleep(1)
+        time.sleep(1.5)
         vnos.delete(0, END)
         vnos.grid()
         root.update()
         b2.configure(text="Reši račun!")
         gumb.config(state=NORMAL)
-        time.sleep(1)
         slika()
         racun()
         root.update()
     else:
         gumb.config(state=DISABLED)
-        pygame.mixer.music.load("sound.mp3")
+        pygame.mixer.music.load("sounds/sound.mp3")
         pygame.mixer.music.play()
         vnos.grid_remove()
         b2.configure(text="Odgovor ni pravilen.")
@@ -324,10 +319,9 @@ def potrdi(event):
         vnos.insert(0, "")
         vnos.grid()
         root.update()
-        time.sleep(1)
+        time.sleep(1.5)
         b2.configure(text="Reši račun!")
         gumb.config(state=NORMAL)
-        time.sleep(1)
         slika()
         racun()
         root.update()
@@ -338,7 +332,6 @@ gumb.grid(row = 3, column = 0, sticky = N, pady = 2)
 
 
 def racun():
-    time.sleep(1)
     root.bind('<Return>', potrdi)
     gumb.bind("<Button-1>", potrdi)
 
